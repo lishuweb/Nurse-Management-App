@@ -1,0 +1,56 @@
+GET http://localhost:3001/api/nurse/
+
+###
+POST http://localhost:3001/api/nurse/create
+Content-Type: application/json
+
+{
+    "name": "Sita",
+    "email": "sita@gmail.com",
+    "contact": 9843,
+    "workingDays": 5,
+    "startDutyTime": "2020-03-21T16:45:01Z",
+    "endDutyTime": "2021-03-21T16:45:01Z",
+    "image": "Image"
+}
+
+###
+PUT http://localhost:3001/api/nurse/update/1
+Content-Type: application/json
+
+{
+    "name": "Gita",
+    "email": "sita@gmail.com",
+    "contact": 9843,
+    "workingDays": 5,
+    "startDutyTime": "2021-03-21T16:45:01Z",
+    "endDutyTime": "2021-04-21T16:45:01Z",
+    "image": "Image"
+}
+
+###
+DELETE http://localhost:3001/api/nurse/delete/2
+
+###
+GET http://localhost:3001/api/register/
+
+###
+POST http://localhost:3001/api/register/create 
+Content-Type: application/json
+
+{
+    "email": "sima@gmail.com",
+    "password": "password"
+}
+
+###
+PUT http://localhost:3001/api/register/update/1 
+Content-Type: application/json
+
+{
+    "email": "lena@gmail.com",
+    "password": "password"
+}
+
+###
+DELETE http://localhost:3001/api/register/delete/2

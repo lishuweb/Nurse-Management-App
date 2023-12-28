@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Reggae+One&display=swap');
+body{
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins';
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+/* #C8D5B9 */
+/* #4A7C59 */
+
+.formDetails
+{
+    background-color: #B6D7B9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.formDetails
+{
+    color: #000;
+}
+
+.formDetails h1 
+{
+    border-bottom: 2px solid black;
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+}
+form 
+{
+    /* background-color: rebeccapurple; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    margin-top: 50px;
+}
+
+input, select 
+{
+    width: 50%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    /* resize: vertical; */
+}
+
+label 
+{
+    padding: 10px; 
+    display: inline-block;
+    font-weight: bolder;
+}
+.col-25 
+{
+    float: left;
+    width: 25%;
+    /* background-color: brown; */
+    margin-top: 6px;
+}
+.col-75 
+{
+    float: right;
+    width: 75%;
+    /* background-color: red; */
+    margin-top: 6px;
+}
+.row:after 
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.btn 
+{
+    padding: 7px 13px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: #B6D7B9;
+    outline: none;
+    border: 2px solid black;
+}
+.btn:hover 
+{
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 3px 3px #000;
+}
+  
