@@ -54,3 +54,12 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3001/api/register/delete/2
+
+###
+POST http://localhost:3001/api/register/login
+Content-Type: application/json
+
+{
+    "email": "lishu@gmail.com",
+    "password": "password1"
+}

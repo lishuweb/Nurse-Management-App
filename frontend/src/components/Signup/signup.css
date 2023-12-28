@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Reggae+One&display=swap');
+body{
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins';
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+/* #C8D5B9 */
+/* #4A7C59 */
+
+.signupForm
+{
+    display: flex;
+    /* background-color: brown; */
+    min-height: 100vh;
+
+}
+.signupFormTag
+{
+    /* background-color: red; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.signupFormField 
+{
+    display: flex;
+    flex-direction: column;
+}
+.signupFormField label 
+{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: left;
+    float: left;
+    text-align: left;
+}
+
+.signupFormField input 
+{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    outline: none;
+}
+.signupFormField input:focus
+{
+    border: 2px solid #4A7C59;
+    /* transition: .3s; */
+    /* outline: none; */
+    /* border: none; */
+}
+.signupFormDetails 
+{
+    background-color: #C8D5B9;
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.signupFormImg 
+{
+    /* background-color: aquamarine; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signupFormImg img 
+{
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+}
+
+.signupFormLink 
+{
+    margin-top: 20px;
+    /* background-color: rebeccapurple; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.signupFormLink .lishu
+{
+    text-decoration: none;
+    color: #4A7C59;
+    margin-left: 10px;
+    font-weight: bolder;
+}
+.signupFormLink .lishu:hover 
+{
+    /* text-decoration: underline;
+    font-size: 18px; */
+    transition: .3s;
+    box-shadow: 3px 2px 3px #4A7C59;
+    font-size: 17px;
+}
+
+.signupFormButton  
+{
+    padding: 9px 16px;
+    margin-top: 30px;
+    border: none;
+    background-color: #fff;
+    border-radius: 3px;
+    font-size: 15px;
+}
+.signupFormButton:hover 
+{
+    background-color: #4A7C59;
+    cursor: pointer;
+    transition: .3s;
+    color: #fff;
+}
+

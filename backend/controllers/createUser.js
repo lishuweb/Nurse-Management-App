@@ -51,6 +51,27 @@ app.delete('/delete/:id', async(req, res) => {
     {
         res.json("Deleted Successfully");
     }
-})
+});
+
+app.post('/login', async(req, res) => {
+    const { email, password } = req.body;
+    const loggedData = await prisma.Register.findMany();
+    const userData = loggedData.find((val) => val.email === email);
+    if(userData)
+    {
+        if(userData.password === password)
+        {
+            res.json("Success");
+        }
+        else 
+        {
+            res.json("UnSuccess");
+        }
+    }
+    else 
+    {
+        res.json("No code available to handle");
+    }
+});
 
 module.exports = app;
