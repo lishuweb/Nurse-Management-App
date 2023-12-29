@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/create.css';
+import './create.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -33,7 +33,7 @@ const Create = () => {
                 console.log(res, "res");
                 if(res.data === "Success")
                 {
-                    navigate('/display');
+                    navigate('/navbar');
                     console.log("created");
                 }
             });
