@@ -23,9 +23,10 @@ const Login = () => {
         })
             .then((res) => {
                 console.log(res, "res");
-                if(res.data === "Success")
+                if(res.data)
                 {
-                    navigate('/display');
+                    window.localStorage.setItem("user", JSON.stringify(res));
+                    navigate('/navbar');
                     console.log("created");
                 }
             });

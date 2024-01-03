@@ -1,6 +1,9 @@
 GET http://localhost:3001/api/nurse/
 
 ###
+GET http://localhost:3001/api/nurse/1
+
+###
 POST http://localhost:3001/api/nurse/create
 Content-Type: application/json
 

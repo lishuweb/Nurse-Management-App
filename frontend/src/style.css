@@ -1,1 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Reggae+One&display=swap');
+.redbackground 
+{
+    background: green;
+}
+  
+.error 
+{
+    color: white;
+    background: red;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+}

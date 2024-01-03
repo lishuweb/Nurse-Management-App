@@ -2,6 +2,17 @@ const express = require("express");
 const app = express();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const cloudinary = require("cloudinary").v2;
+
+const cloud_name=process.env.Cloud_Name;
+const api_key=process.env.API_KEY;
+const secret_key=process.env.SECRET_KEY;
+
+cloudinary.config({
+    cloud_name: cloud_name,
+    api_key: api_key,
+    secret_key: secret_key
+})
 
 Nurse = [];
 app.get('/', async(req, res) => {
@@ -9,34 +20,72 @@ app.get('/', async(req, res) => {
     res.json(nurseDetails);
 });
 
-app.post('/create', async(req, res) => {
-    // const {contact} = parseInt(req.body.contact);
-    // const { name,
-    //     email,
-    //     contact,
-    //     workingDays,
-    //     startDutyTime,
-    //     endDutyTime,
-    //     roundingManager,
-    //     image, } = req.body;
-    // const { contact } = parseInt(req.body.contact)
-    const newNurse = await prisma.Nurse.create({
-        data: {
-            name: req.body.name,
-            email: req.body.email,
-            contact: req.body.contact,
-            workingDays: req.body.workingDays,
-            startDutyTime: req.body.startDutyTime,
-            endDutyTime: req.body.endDutyTime,
-            roundingManager: req.body.roundingManager,
-            image: req.body.image,
-        },
+app.get('/:id', async(req, res) => {
+    const id = parseInt(req.params.id);
+    const getNurse = await prisma.Nurse.findUnique({
+        where: {
+            id: id
+        }
     });
-    if(newNurse)
+    if(getNurse)
     {
-        res.json("Success");
+        res.json(getNurse);
     }
-    res.json(newNurse);
+});
+
+app.post('/create', async(req, res) => {
+    try{
+        if(await prisma.register.findUnique({
+            where:{email: req.body.email}}))
+        {
+            return res.json({error: "Email already exists!"});
+        }
+        if(!req.files || !req.files.image)
+        {
+            return res.status(400).send("Please upload an image");
+        }
+
+        const {image} = re.files;
+        const fileTypes = ["image/jpeg", "image/png", "image/jpg"];
+        const imageSize = 1024;
+
+        if(!fileTypes.includes(image.mimetype))
+        {
+            return res.status(400).send("Image formats supported: JPG, PNG, JPEG");
+        }
+
+        const upload = async(file) => {
+            try{
+                const cloudFile = await cloudinary.uploader.upload(
+                    file,
+                    (result) => result
+                );
+                return cloudFile;
+            } catch(uploadError)
+            {
+                throw new Error("Failed to upload image");
+            }
+        };
+
+        const cloudFile = await upload(image.tempFilePath);
+
+        const newNurse = await prisma.Nurse.create({
+            data: {
+                name: req.body.name,
+                email: req.body.email,
+                contact: req.body.contact,
+                workingDays: req.body.workingDays,
+                startDutyTime: req.body.startDutyTime,
+                endDutyTime: req.body.endDutyTime,
+                roundingManager: req.body.roundingManager,
+                image: req.body.image,
+            },
+        });
+        if(newNurse)
+        {
+            res.json("Success");
+        } 
+}   
 });
 
 app.put('/update/:id', async(req, res) => {
@@ -56,7 +105,10 @@ app.put('/update/:id', async(req, res) => {
                 image: req.body.image,
             },
         });
-    res.json(updatedData); 
+    if(updatedData)
+    {
+        res.json("Success");
+    }
 });
 
 app.delete('/delete/:id', async(req, res) => {
@@ -66,9 +118,10 @@ app.delete('/delete/:id', async(req, res) => {
             id: id
         },
     });
-    res.json({
-        message: "Deleted Successfully",
-    });
+    if(deletedData)
+    {
+        res.json("Success");
+    }
 });
 
 module.exports = app;

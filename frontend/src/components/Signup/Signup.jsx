@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [notification, setNotification] = useState("");
     console.log(email, "email");
     console.log(password, "password");
 
@@ -22,27 +23,53 @@ const Signup = () => {
             password
         })
             .then((res) => {
-                console.log(res, "res");
+                console.log(res.data.error)
+                if(res.data.error === "Email or password is missing!")
+                {
+                    // console.log(res);
+                    // window.alert(res.data.error);
+                    // navigate('/signup');
+                    setNotification("Email or password is missing!");
+                    setTimeout(() => {
+                        setNotification("");
+                    }, 3000);
+                }
+                else if(res.data.error === "Email already exists!")
+                {
+                    console.log(res.data.error)
+                    window.alert(res.data.error);
+                    navigate('/signup');
+                }
+                else if(res.data.error === "Password must be atleast 8 characters!")
+                {
+                    console.log(res.data.error)
+                    window.alert(res.data.error);
+                    navigate('/signup');
+                }
+                else 
+                {
+                    navigate('/login');
+                }
             }).catch((e) => {
                 console.log(e);
             });
-            navigate('/login');
     };
 
     return (
+        
         <div className='signupForm'>
-                <div className='signupFormDetails'>
-                    <h1 style={{marginTop: "20px"}}>Sign up</h1>
-                    <form className='signupFormTag' onSubmit={handleSubmit}>
+            <div className='signupFormDetails'>
+                <h1 style={{marginTop: "20px"}}>Sign up</h1>
+                <form className='signupFormTag' onSubmit={handleSubmit}>
                             <div className="signupFormField">
                                 <label htmlFor='email' className='email'>Email</label>
-                                <input type='email' name='email' className='email' required
+                                <input type='email' name='email' className='email'
                                     value = {email} onChange={(event)=>setEmail(event.target.value)}
                                 />
                             </div>
                             <div className="signupFormField">
                                 <label htmlFor='password'>Password</label>
-                                <input type='password' name='password' className='password' required
+                                <input type='password' name='password' className='password' 
                                     value = {password} onChange={(event)=>setPassword(event.target.value)}
                                 />
                             </div>
@@ -55,8 +82,11 @@ const Signup = () => {
                                     Sign up
                                 </button>
                             </div>
-                    </form>
-                </div>
+                </form>
+            </div>
+            <div className="error">
+                { notification }
+            </div> 
             <div className='signupFormImg'>
                 <img src={bg} alt='Image' />
             </div>

@@ -3,7 +3,7 @@ import './create.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import Login from '../Signup/Login';
 
 const Create = () => {
     const [name, setName] = useState("");
@@ -40,7 +40,9 @@ const Create = () => {
     };
 
     return (
-        <div className='formDetails'>
+        <>
+        {localStorage.getItem('user') ? 
+            <div className='formDetails'>
             <h1>Create Nurse Details</h1>
             <form onSubmit={handleSubmit}>
                 <div className="row">
@@ -88,7 +90,8 @@ const Create = () => {
                         <label htmlFor="startDutyTime">Start Duty Time</label>
                     </div>
                     <div className="col-75">
-                        <input type='date' name='startDutyTime' className='startDutyTime' required
+                    {/* <input type="time" id="appt" name="appt" min="09:00" max="18:00" required /> */}
+                        <input type='time' name='startDutyTime' className='startDutyTime'  required
                             value={startDutyTime} onChange={(event)=>setStartDutyTime(event.target.value)}
                         />
                     </div>
@@ -98,7 +101,7 @@ const Create = () => {
                         <label htmlFor="endDutyTime">End Duty Time</label>
                     </div>
                     <div className="col-75">
-                        <input type='date' name='endDutyTime' className='endDutyTime' required
+                        <input type='time' name='endDutyTime' className='endDutyTime'  required
                             value={endDutyTime} onChange={(event)=>setEndDutyTime(event.target.value)}
                         />
                     </div>
@@ -132,7 +135,15 @@ const Create = () => {
                 
                 
             </form>
-        </div>
+            </div>
+        : 
+        
+        <Login />
+        
+        }
+        { !localStorage.getItem('user') && window.alert("Login first!")}
+        </>
+       
     )
 };
 

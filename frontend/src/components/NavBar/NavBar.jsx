@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './navBar.css';
 import { Link } from 'react-router-dom';
 import calendar from '../assests/calendar.png';
@@ -6,45 +6,22 @@ import overview from '../assests/overview.png';
 import nurse from '../assests/nurse.png';
 import chat from '../assests/chat.png';
 import setting from '../assests/setting.png';
-import axios from 'axios';
-import { useState } from 'react';
+import Display from './Display';
+import { useNavigate } from 'react-router-dom';
+import Login from '../Signup/Login';
 
 const NavBar = ()=> {
+    const navigate = useNavigate();
 
-
-    
-    const [data, setData] = useState([]);
-
-    useEffect(()=> {
-        fetchData();
-    }, []);
-
-    // const fetchData = async() => {
-    //     const createdData = await axios.get('http://localhost:3001/api/nurse/');
-    //     let val = createdData.data;
-    //     console.log(val, "val");
-    //     val.map(res => {
-    //         setData([...data, {
-    //             name: res.name,
-    //             email: res.email,
-    //             contact: res.contact,
-    //             workingDays: res.workingDays,
-    //             startDutyTime: res.startDutyTime,
-    //             endDutyTime: res.endDutyTime,
-    //             roundingManager: res.roundingManager,
-    //             image: res.image
-    //         }]);
-    //     });
-    // };
-
-    const fetchData = async() => {
-        const createdData = await axios.get('http://localhost:3001/api/nurse/');
-        setData(createdData.data);
+    const handleLogout = () => {
+        window.localStorage.removeItem('user');
+        navigate('/login');
     }
-    console.log(data, "DATA");
 
     return(
-        <div className="navBarMain">
+        <>
+        {localStorage.getItem('user') ? 
+            <div className="navBarMain">
             <div className="navBarDetails">
                 <p className="navBarDetails-hd">Nursing</p>
                 <div className="navBarDetails-items">
@@ -112,59 +89,30 @@ const NavBar = ()=> {
                         <button className='padding-btn'>
                             <Link to='../create' className="navBarLink">Create</Link>
                         </button>
+                        <button className='padding-btn'>
+                            <Link to='/display' className="navBarLink">Display</Link>
+                        </button>
                     </div>
 
                     <div className="navBarSecondTopBtnlo">
+                    
                         <button className='padding-btn'>
-                            Logout
-                        </button>
+                            {localStorage.getItem('user') ? 
+                                <button onClick={handleLogout}>Logout</button> :
+                                <Link to='/login' className="navBarLink">Login</Link>
+                            }
+                    </button>
                     </div>
                 </div>
-
-                <div className='navBarSecondDown'>
-                    <table className='navBarSecondDownTable'>
-                        <thead>
-                            <tr className='navBarSecondDownTableOne' style={{fontSize: "15px"}}>
-                                <td>S.N.</td>
-                                <td>Name</td>
-                                <td>Email</td>
-                                <td>Contact</td>
-                                <td>Working Days</td>
-                                <td>Start Duty Time</td>
-                                <td>End Duty Time</td>
-                                <td>Rounding Manager</td>
-                                <td>Image</td>
-                                <td>Action</td>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            {data.map((item, index) => (
-                                <tr key={index} className='navBarSecondDownTableTwo' style={{borderBottom: "1px solid #C8D5B9", fontSize: "14px"}}>
-                                    <td>{index + 1}.</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.contact}</td>
-                                    <td>{item.workingDays}</td>
-                                    <td>{item.startDutyTime}</td>
-                                    <td>{item.endDutyTime}</td>
-                                    <td>{item.roundingManager}</td>
-                                    <td>{item.image} </td>      
-                                    <td className='dropDown'>
-                                        <img className="navBarDrop" src={setting} height="20px" width="20px" style={{textAlign:"center", justifyContent: "center"}}/>
-                                        <div class="dropdown-content">
-                                            <Link to='../update' className="navBarDrop" data={data}>Update</Link><br/>
-                                            <Link to='../create' className="navBarDrop">Delete</Link>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                        
-                    </table>
-                </div>
+                <Display />
             </div>
-        </div>
+            </div>
+        : 
+        <Login />
+        }
+        {!localStorage.getItem('user') && window.alert('Login first')}
+        </>
+        
         
     )
 }
