@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 const config = require('../utils/config');
 
 User = [];
-// app.get('/', async(req, res) => {
-//     const userDetails = await prisma.Register.findMany();
-//     res.json(userDetails);
-// });
+app.get('/', async(req, res) => {
+    const userDetails = await prisma.Register.findMany();
+    res.json(userDetails);
+});
 
 app.post('/create', async(req, res, next) => {
     try {
