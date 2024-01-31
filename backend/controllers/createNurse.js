@@ -39,10 +39,6 @@ app.post('/create', async(req, res) => {
         {
             return res.json({error: "Email already exists!"});
         }
-        if(!req.files || !req.files.image)
-        {
-            return res.status(400).send("Please upload an image");
-        }
 
         // const {image} = re.files;
         // const fileTypes = ["image/jpeg", "image/png", "image/jpg"];
